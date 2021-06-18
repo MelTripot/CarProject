@@ -8,15 +8,7 @@ public class OilBehavior : MonoBehaviour
     private Collider2D oilCollider;
     private bool isHit;
 
-    //private void OnTriggerEnter(Collider collision) // Detecte la collision 
-    //{
-    //    if (collision.gameObject.CompareTag("Player")) //TODO ouvrir cette fonction a l'ia ( && IA) 
-    //    {
-    //        collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-F * Time.deltaTime, 0f, 0f));
-    //        Debug.Log("ralenti");
-    //    }
-    //    Debug.Log("TEST");
-    //}
+    
     private void OnEnable() // quand l'object est activé 
     {
         oilCollider = this.gameObject.GetComponent<BoxCollider2D>();
@@ -24,16 +16,23 @@ public class OilBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) // Detecte la collision 
     {
-        if (collision.gameObject.CompareTag("Player")) //TODO ouvrir cette fonction a l'ia ( && IA) 
+        if (collision.gameObject.CompareTag("Player")) // si joueur
         {
             isHit = true;
             oilCollider.isTrigger = true;
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
             player.Ralentissement();
             StartCoroutine(AccelDelay());
-            //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-F * Time.deltaTime, 0f, 0f));
-            //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-F * Time.deltaTime, 0f, 0f));
             Debug.Log("ralenti");
+        }
+        if (collision.gameObject.CompareTag("IA")) // si IA 
+        {
+            isHit = true;
+            oilCollider.isTrigger = true;
+            IABehavior ia = collision.gameObject.GetComponent<IABehavior>();
+            ia.Ralentissement();
+            StartCoroutine(AccelDelay());
+            // TODO comportement de l'ia en cas de collision
         }
         Debug.Log("TEST");
     }

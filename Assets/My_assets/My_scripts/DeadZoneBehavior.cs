@@ -9,14 +9,12 @@ public class DeadZoneBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) //TODO A faire pour l'ia aussi
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("IA")) 
         {
             gameOverPannel.SetActive(true);
             Time.timeScale = 0;
+            // TODO Gagner ou perdu 
         }
-        
-
-        
     }
 
     public void ResetButton()

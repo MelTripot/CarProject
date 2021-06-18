@@ -36,7 +36,7 @@ public class ConeBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) // Detecte la collision 
     {
-        if (collision.gameObject.CompareTag("Player")) //TODO ouvrir cette fonction a l'ia ( && IA) 
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("IA")) 
         {
             isHit = true;
             coneCollider.isTrigger = true;

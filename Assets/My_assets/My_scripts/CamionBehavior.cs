@@ -20,7 +20,7 @@ public class CamionBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) // Detecte la collision 
     {
-        if (collision.gameObject.CompareTag("Player")) //TODO ouvrir cette fonction a l'ia ( && IA) 
+        if (collision.gameObject.CompareTag("Player")|| collision.gameObject.CompareTag("IA")) 
         {
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-force * Time.deltaTime, 0f,0f));
         }

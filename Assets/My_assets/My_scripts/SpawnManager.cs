@@ -68,7 +68,7 @@ public class SpawnManager : MonoBehaviour
                     currentProp.localPosition = new Vector3(startPositions[xValue].x, currentPositionY, 0f);
                     if (currentProp.gameObject.name.Contains("Cone"))
                     {
-                        currentProp.gameObject.GetComponent<ConeBehavior>().isHit = false; // remet le cone a son etats initial 
+                        currentProp.gameObject.GetComponent<ConeBehavior>().isHit = false; // remet le cone à son etat initial 
                         currentProp.gameObject.GetComponent<Collider2D>().isTrigger = false;
                     }
                     currentProp.gameObject.SetActive(false);

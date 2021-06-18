@@ -23,7 +23,6 @@ public class CamionBehavior : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")) //TODO ouvrir cette fonction a l'ia ( && IA) 
         {
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-force * Time.deltaTime, 0f,0f));
-            Debug.Log("hit");
         }
     }
 }

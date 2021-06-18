@@ -13,8 +13,6 @@ public class SpawnManager : MonoBehaviour
 
     private GameObject[,] props = new GameObject[3,3];
     private float movementSpeed;
-    private float MaxSpeed = 10f;
-    private float MinSpeed = 5f ;
 
     void Start()
     {

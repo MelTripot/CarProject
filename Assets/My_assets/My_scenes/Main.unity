@@ -1019,6 +1019,7 @@ GameObject:
   - component: {fileID: 1204426131}
   - component: {fileID: 1204426130}
   - component: {fileID: 1204426129}
+  - component: {fileID: 1204426128}
   m_Layer: 0
   m_Name: IA
   m_TagString: IA
@@ -1026,6 +1027,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1204426128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204426127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 021cfc309b51d8b4d8e46f8b48ddca3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &1204426129
 BoxCollider2D:
   m_ObjectHideFlags: 0

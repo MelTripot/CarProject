@@ -47,6 +47,7 @@ public class IABehavior : MonoBehaviour
         StartCoroutine(AccelDelay());
     }
 
+
     IEnumerator AccelDelay()
     {
         yield return new WaitForSeconds(1F);

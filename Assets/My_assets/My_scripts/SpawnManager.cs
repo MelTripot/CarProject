@@ -14,6 +14,9 @@ public class SpawnManager : MonoBehaviour
     private GameObject[,] props = new GameObject[3,3];
     private float movementSpeed;
 
+    private List<GameObject> ActiveObstacles;
+    private Rigidbody2D IACar; 
+
     void Start()
     {
         //delai de 3s entre chaque spawn 
@@ -25,6 +28,9 @@ public class SpawnManager : MonoBehaviour
         startPositions[1] = new Vector3(12f, 0f, 0f);
         startPositions[2] = new Vector3(12f, -2.9f, 0f);
 
+        ActiveObstacles = new List<GameObject>();
+        IACar = GameObject.Find("IA").GetComponent<Rigidbody2D>();
+        
         InstantiateProps();
     }
      
@@ -32,6 +38,7 @@ public class SpawnManager : MonoBehaviour
     {
         MoveProps();
         RandomizePropsActivation();
+        //donner liste  a ia
     }
 
     private void InstantiateProps()
@@ -59,7 +66,11 @@ public class SpawnManager : MonoBehaviour
                 float currentPositionY = currentProp.localPosition.y;
                 currentProp.localPosition = new Vector3(currentPositionX - movementSpeed * Time.deltaTime, currentPositionY, 0f);
                 
-                if (currentProp.localPosition.x <= -12f)
+                if(currentProp.localPosition.x <= (IACar.position.x - 2.5F))
+                {
+                    ActiveObstacles.Remove(currentProp.gameObject); // enleve l'objet de la liste active quand il est derriere l'ia 
+                }
+                if (currentProp.localPosition.x <= -12f )
                 {
                     string name = this.gameObject.transform.GetChild(i).name;
                     string subName = (name.Substring(name.Length - 1));
@@ -72,7 +83,7 @@ public class SpawnManager : MonoBehaviour
                         currentProp.gameObject.GetComponent<Collider2D>().isTrigger = false;
                     }
                     currentProp.gameObject.SetActive(false);
-                    currentPropsCount -= 1;
+
                 }
             }
         }
@@ -87,16 +98,16 @@ public class SpawnManager : MonoBehaviour
         }
         else 
         {
-            if (currentPropsCount <= maxPropsCount)
+            if (ActiveObstacles.Count <= maxPropsCount)
             {
                 spawnDelay = Random.Range(0.5f, 3f); 
                 int i = Random.Range(0, 3);
                 int j = Random.Range(0, 3);
-                props[i, j].SetActive(true);
-                currentPropsCount += 1;
-            }
-                
+                props[i, j].SetActive(true);                
+                ActiveObstacles.Add(props[i, j]);//ajoute les obstacles a la liste des actifs
+            }                
 
         }
     }
+
 }

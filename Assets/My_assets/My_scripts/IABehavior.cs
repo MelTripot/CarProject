@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IABehavior : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    private Rigidbody2D rb ;     
 
     private float horizontalSpeed, verticalSpeed, Ralenti, Maxspeed;
     private float horizontalMovement, verticalMovement;
@@ -38,6 +38,16 @@ public class IABehavior : MonoBehaviour
         else
         {
             rb.AddForce(new Vector2(Ralenti * Time.deltaTime, verticalMovement));
+        }
+    }
+
+    public Rigidbody2D GetRigidbody() { return rb; }
+
+    public void IASensor(List<GameObject> ObstacleList) // prise de désision de l'evitement en fonction de la position de objets 
+    {
+        if (ObstacleList[0].transform.position.x <= (rb.position.x + 8f) || ObstacleList[0].transform.position.x >= (rb.position.x +2.5f)) //Obstacle.X est devant l'ia.X a entre +2.5F et +8F 
+        {
+            // suite algo 
         }
     }
 

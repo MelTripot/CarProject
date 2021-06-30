@@ -18,7 +18,7 @@ public class IABehavior : MonoBehaviour
         Maxspeed = 4200f;
         Ralenti = -2100f;
         horizontalSpeed = Maxspeed;
-        verticalSpeed = 6000f;
+        verticalSpeed = 0f;
         playerSize = new Vector2(2.4f, 1.4f); // distence entre le centre et les bords du vehicule 
 
         lane[0] = new Vector3(12f, 2.9f, 1.5f);// les differentes voies de circulation ici z correspond a la moitiée de la largeur d'une ligne 
@@ -29,14 +29,15 @@ public class IABehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Deplacement();
+        
     }
 
 
-    private void Deplacement()
+    public void Deplacement(List<GameObject> ObstacleList)
     {
         if (!isSlow)
         {
+            IASensor(ObstacleList);
             //TODO Mouvement de l'ia 
         }
         else
@@ -44,15 +45,54 @@ public class IABehavior : MonoBehaviour
             rb.AddForce(new Vector2(Ralenti * Time.deltaTime, verticalMovement));
         }
     }
+    private void MoveTo(int choice)
+    {
+        switch (choice)
+        {
+            case 0:
+                if (lane[choice].y + (playerSize.y /2) > rb.position.y && lane[choice].y - (playerSize.y / 2) < rb.position.y) // si n'est pas au dessus de la ligne : monte 
+                {
+                    verticalMovement = verticalSpeed * Time.deltaTime;
+                    Debug.Log("haut");
+                }
+                break;
 
+            case 1:
+                if (lane[choice].y + (playerSize.y / 2) > rb.position.y && lane[choice].y - (playerSize.y / 2) < rb.position.y)// si n'est pas au dessus de la ligne : monte 
+                {
+                    verticalMovement = verticalSpeed * Time.deltaTime;
+                    Debug.Log("haut");
+                }
+                else if (lane[choice].y + (playerSize.y / 2) < rb.position.y && lane[choice].y - (playerSize.y / 2) > rb.position.y) // si n'est pas en dessous de la ligne : desscend 
+                {
+                    verticalMovement = -verticalSpeed * Time.deltaTime;
+                    Debug.Log("bas");
+                }
+                break;
+
+
+            case 2:
+                if (lane[choice].y + (playerSize.y / 2) < rb.position.y && lane[choice].y - (playerSize.y / 2) > rb.position.y)  // si n'est pas en dessous de la ligne : desscend 
+                {
+                    verticalMovement = -verticalSpeed * Time.deltaTime;
+                    Debug.Log("bas");
+                }
+                break;
+
+            default:
+                break;
+        }
+        rb.AddForce(new Vector2(horizontalMovement, verticalMovement));
+    }
     public Rigidbody2D GetRigidbody() { return rb; }
 
-    public void IASensor(List<GameObject> ObstacleList) // prise de décision de l'evitement en fonction de la position de objets 
+    private void IASensor(List<GameObject> ObstacleList) // prise de décision de l'evitement en fonction de la position de objets 
     {
         foreach (var obstacle in ObstacleList)
         {
             if (obstacle.transform.position.x <= (rb.position.x + 8f) && obstacle.transform.position.x >= (rb.position.x + playerSize.x)) //Obstacle.X est devant l'ia.X a entre +2.5F et +8F 
             {
+                Debug.Log("ah");
                 if (obstacle.transform.position.y <= (rb.position.y + playerSize.y) && obstacle.transform.position.y >= (rb.position.y - playerSize.y)) //l'obstacle est sur la meme voie que l IA 
                 {
                     if (obstacle.transform.position.y < (lane[0].y + lane[0].z) && obstacle.transform.position.y > (lane[0].y - lane[0].z)) //l'ia est sur la voie du haut
@@ -60,7 +100,7 @@ public class IABehavior : MonoBehaviour
                         if (!((obstacle.transform.position.y < (lane[1].y + lane[1].z) && obstacle.transform.position.y > (lane[1].y - lane[1].z))&& 
                             ((obstacle.transform.position.x<= (rb.position.x+ playerSize.x)) && (obstacle.transform.position.x>= (rb.position.x- playerSize.y))))) //il y a pas n'obstacle au milieux au niveau de la voiture 
                         {
-                            //TODO IA va sur la ligne du milieux
+                            MoveTo(1);// IA va sur la ligne du milieux
                         }
                             
                     }
@@ -69,7 +109,7 @@ public class IABehavior : MonoBehaviour
                         if (!((obstacle.transform.position.y < (lane[1].y + lane[1].z) && obstacle.transform.position.y > (lane[1].y - lane[1].z)) &&
                             ((obstacle.transform.position.x <= (rb.position.x + playerSize.x)) && (obstacle.transform.position.x >= (rb.position.x - playerSize.y))))) //il y a pas n'obstacle au milieux au niveau de la voiture 
                         {
-                            //TODO IA va sur la ligne du milieux
+                            MoveTo(1);// IA va sur la ligne du milieux
                         }
                     }
                     else if (obstacle.transform.position.y < (lane[1].y + lane[1].z) && obstacle.transform.position.y > (lane[1].y - lane[1].z))//l'ia est sur la voie du Millieu
@@ -77,12 +117,12 @@ public class IABehavior : MonoBehaviour
                         if (!((obstacle.transform.position.y < (lane[0].y + lane[0].z) && obstacle.transform.position.y > (lane[0].y - lane[0].z)) &&
                             ((obstacle.transform.position.x <= (rb.position.x + playerSize.x)) && (obstacle.transform.position.x >= (rb.position.x - playerSize.y))))) //TODO il y a pas n'obstacle sur la voie du haut au niveau de la voiture
                         {
-                            //TODO IA va sur la ligne du haut
+                            MoveTo(0);// IA va sur la ligne du haut
                         }
                         else if (!((obstacle.transform.position.y < (lane[2].y + lane[2].z) && obstacle.transform.position.y > (lane[2].y - lane[2].z)) &&
                             ((obstacle.transform.position.x <= (rb.position.x + playerSize.x)) && (obstacle.transform.position.x >= (rb.position.x - playerSize.y))))) //TODO il y a pas n'obstacle sur la voie du bas au niveau de la voiture 
                         {
-                            //TODO IA va sur la ligne du bas
+                            MoveTo(2);// IA va sur la ligne du bas
                         }
 
                     }

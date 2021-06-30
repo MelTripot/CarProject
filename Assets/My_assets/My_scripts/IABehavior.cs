@@ -51,22 +51,40 @@ public class IABehavior : MonoBehaviour
     {
         foreach (var obstacle in ObstacleList)
         {
-            if (obstacle.transform.position.x <= (rb.position.x + 8f) || obstacle.transform.position.x >= (rb.position.x + playerSize.x)) //Obstacle.X est devant l'ia.X a entre +2.5F et +8F 
+            if (obstacle.transform.position.x <= (rb.position.x + 8f) && obstacle.transform.position.x >= (rb.position.x + playerSize.x)) //Obstacle.X est devant l'ia.X a entre +2.5F et +8F 
             {
-                if (obstacle.transform.position.y <= (rb.position.y + playerSize.y) || obstacle.transform.position.y >= (rb.position.y - playerSize.y)) //l'obstacle est sur la meme voie que l IA 
+                if (obstacle.transform.position.y <= (rb.position.y + playerSize.y) && obstacle.transform.position.y >= (rb.position.y - playerSize.y)) //l'obstacle est sur la meme voie que l IA 
                 {
-                    if (obstacle.transform.position.x < (lane[0].x + lane[0].z) || obstacle.transform.position.x > (lane[0].x - lane[0].z)) //l'ia est sur la voie du haut
+                    if (obstacle.transform.position.y < (lane[0].y + lane[0].z) && obstacle.transform.position.y > (lane[0].y - lane[0].z)) //l'ia est sur la voie du haut
                     {
-                        //TODO  il y a pas n'obstacle au milieux au niveau de la voiture 
+                        if (!((obstacle.transform.position.y < (lane[1].y + lane[1].z) && obstacle.transform.position.y > (lane[1].y - lane[1].z))&& 
+                            ((obstacle.transform.position.x<= (rb.position.x+ playerSize.x)) && (obstacle.transform.position.x>= (rb.position.x- playerSize.y))))) //il y a pas n'obstacle au milieux au niveau de la voiture 
+                        {
+                            //TODO IA va sur la ligne du milieux
+                        }
+                            
                     }
-                    else if (obstacle.transform.position.x < (lane[2].x + lane[2].z) || obstacle.transform.position.x > (lane[2].x - lane[2].z))//l'ia est sur la voie du bas
+                    else if (obstacle.transform.position.y < (lane[2].y + lane[2].z) && obstacle.transform.position.y > (lane[2].y - lane[2].z))//l'ia est sur la voie du bas
                     {
-                        //TODO  il y a pas n'obstacle au milieux au niveau de la voiture 
+                        if (!((obstacle.transform.position.y < (lane[1].y + lane[1].z) && obstacle.transform.position.y > (lane[1].y - lane[1].z)) &&
+                            ((obstacle.transform.position.x <= (rb.position.x + playerSize.x)) && (obstacle.transform.position.x >= (rb.position.x - playerSize.y))))) //il y a pas n'obstacle au milieux au niveau de la voiture 
+                        {
+                            //TODO IA va sur la ligne du milieux
+                        }
                     }
-                    else if (obstacle.transform.position.x < (lane[1].x + lane[1].z) || obstacle.transform.position.x > (lane[1].x - lane[1].z))//l'ia est sur la voie du Millieu
+                    else if (obstacle.transform.position.y < (lane[1].y + lane[1].z) && obstacle.transform.position.y > (lane[1].y - lane[1].z))//l'ia est sur la voie du Millieu
                     {
-                        //TODO il y a pas n'obstacle sur la voie du haut au niveau de la voiture
-                        //TODO il y a pas n'obstacle sur la voie du bas au niveau de la voiture 
+                        if (!((obstacle.transform.position.y < (lane[0].y + lane[0].z) && obstacle.transform.position.y > (lane[0].y - lane[0].z)) &&
+                            ((obstacle.transform.position.x <= (rb.position.x + playerSize.x)) && (obstacle.transform.position.x >= (rb.position.x - playerSize.y))))) //TODO il y a pas n'obstacle sur la voie du haut au niveau de la voiture
+                        {
+                            //TODO IA va sur la ligne du haut
+                        }
+                        else if (!((obstacle.transform.position.y < (lane[2].y + lane[2].z) && obstacle.transform.position.y > (lane[2].y - lane[2].z)) &&
+                            ((obstacle.transform.position.x <= (rb.position.x + playerSize.x)) && (obstacle.transform.position.x >= (rb.position.x - playerSize.y))))) //TODO il y a pas n'obstacle sur la voie du bas au niveau de la voiture 
+                        {
+                            //TODO IA va sur la ligne du bas
+                        }
+
                     }
                 }//else ne rien faire 
             }//else ne rien faire 

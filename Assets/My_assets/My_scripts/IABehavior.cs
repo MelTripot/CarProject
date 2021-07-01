@@ -128,35 +128,75 @@ public class IABehavior : MonoBehaviour
         
     }
 
-    private bool WillCollide(Rigidbody2D rb, GameObject Ob) // me permet de determiner si mes deux objet vont collider
+    private bool WillCollide(Rigidbody2D rb, List<GameObject> ObstacleList, int line) // me permet de determiner si mes deux objet vont collider
     {
-        // determiner les extremitées 
-        Vector2 Vectonull = new Vector2(0, 0);
-        Vector2 IaWidth = new Vector2((rb.position.x - playerSize.x), (rb.position.x + playerSize.x)); // vecteur X extrémité droite, Y gauche
-        Vector2 ObWidth = Vectonull;
-        // si ob = cone 
-        if (Ob.name.Contains("Cone")){
-            ObWidth = new Vector2((Ob.transform.position.x - Ob.GetComponent<ConeBehavior>().size.x), (Ob.transform.position.x + playerSize.x));
-        }
-        // si ob = oil 
-        if (Ob.name.Contains("oil")){
-            ObWidth = new Vector2((Ob.transform.position.x - Ob.GetComponent<OilBehavior>().size.x), (Ob.transform.position.x + playerSize.x));
-        }
-        // si ob = camion 
-        if (Ob.name.Contains("Truck")){
-            ObWidth = new Vector2((Ob.transform.position.x - Ob.GetComponent<CamionBehavior>().size.x), (Ob.transform.position.x + playerSize.x));
-        }
-        if (ObWidth != Vectonull)
+        bool collid = false;
+        if(ObstacleList != null)
         {
-            // regarde si les objets vont se chevaucher 
-            if ((IaWidth.x >= ObWidth.x && IaWidth.x <= ObWidth.y) || //le point le plus a gauche de Ia ext entre les extremités de l'obstacle 
-                (IaWidth.y >= ObWidth.x && IaWidth.y <= ObWidth.y)) //le point le plus a droite de Ia ext entre les extremités de l'obstacle 
+            foreach (var Ob in ObstacleList)
             {
-                return true;
+                // determiner les extremitées 
+                Vector2 Vectonull = new Vector2(0, 0);
+                Vector2 IaWidth = new Vector2((rb.position.x - playerSize.x), (rb.position.x + playerSize.x)); // vecteur X extrémité droite, Y gauche
+                Vector2 ObWidth = Vectonull;
+                // si ob = cone 
+                if (Ob.name.Contains("Cone"))
+                {
+                    ObWidth = new Vector2((Ob.transform.position.x - Ob.GetComponent<ConeBehavior>().size.x), (Ob.transform.position.x + playerSize.x));
+                }
+                // si ob = oil 
+                if (Ob.name.Contains("oil"))
+                {
+                    ObWidth = new Vector2((Ob.transform.position.x - Ob.GetComponent<OilBehavior>().size.x), (Ob.transform.position.x + playerSize.x));
+                }
+                // si ob = camion 
+                if (Ob.name.Contains("Truck"))
+                {
+                    ObWidth = new Vector2((Ob.transform.position.x - Ob.GetComponent<CamionBehavior>().size.x), (Ob.transform.position.x + playerSize.x));
+                }
+                if (ObWidth != Vectonull)
+                {
+                    // regarde si les objets vont se chevaucher 
+                    if ((IaWidth.x >= ObWidth.x && IaWidth.x <= ObWidth.y) || //le point le plus a gauche de Ia ext entre les extremités de l'obstacle 
+                        (IaWidth.y >= ObWidth.x && IaWidth.y <= ObWidth.y)) //le point le plus a droite de Ia ext entre les extremités de l'obstacle 
+                    {
+                        //check si ligne ajacente 
+                        switch (line)
+                        {
+                            case 0: //ia ligne haut -> millieu
+                                if (Ob.transform.position.y < (lane[1].y + lane[1].z) && Ob.transform.position.y > (lane[1].y - lane[1].z))//l'ob est sur la voie du Millieu
+                                { collid = true; }
+                                    break;
+
+                            case 1://ia ligne millieu -> haut
+                                if (Ob.transform.position.y < (lane[0].y + lane[0].z) && Ob.transform.position.y > (lane[0].y - lane[0].z))//l'ob est sur la voie du Haut 
+                                { collid = true; }
+                                break;
+
+                            case 2://ia ligne millieu -> bas
+                                if (Ob.transform.position.y < (lane[2].y + lane[2].z) && Ob.transform.position.y > (lane[2].y - lane[2].z))//l'ob est sur la voie du bas 
+                                { collid = true; }
+                                break;
+
+                            case 4: //ia ligne bas -> millieu
+                                if (Ob.transform.position.y < (lane[1].y + lane[1].z) && Ob.transform.position.y > (lane[1].y - lane[1].z))//l'ob est sur la voie du Millieu
+                                { collid = true; }
+                                break;
+
+                            default:
+                                break;
+                        }
+
+
+
+                        
+                    }
+                   
+                }
+                
             }
-            else { return false; }
         }
-        else return false;        
+        return collid;        
     }
 
     public void Ralentissement()

@@ -7,8 +7,9 @@ public class OilBehavior : MonoBehaviour
     
     private Collider2D oilCollider;
     private bool isHit;
+    public Vector2 size = new Vector2(1.64f,1.43f);
 
-    
+
     private void OnEnable() // quand l'object est activé 
     {
         oilCollider = this.gameObject.GetComponent<BoxCollider2D>();

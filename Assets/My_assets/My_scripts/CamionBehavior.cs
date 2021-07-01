@@ -6,10 +6,11 @@ public class CamionBehavior : MonoBehaviour
 {
 
     private Collider2D camionCollider;
-    private const float force = 150000f; 
+    private const float force = 150000f;
+    public Vector2 size = new Vector2(2.83f, 1.23f);
     void Start()
     {
-        camionCollider = this.gameObject.GetComponent<BoxCollider2D>();
+        camionCollider = this.gameObject.GetComponent<BoxCollider2D>();        
     }
 
 

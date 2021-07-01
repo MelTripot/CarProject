@@ -87,8 +87,7 @@ public class IABehavior : MonoBehaviour
                     {
                         if (obstacle.transform.position.y < (lane[0].y + lane[0].z) && obstacle.transform.position.y > (lane[0].y - lane[0].z)) //l'ia est sur la voie du haut
                         {
-                            if (!((obstacle.transform.position.y < (lane[1].y + lane[1].z) && obstacle.transform.position.y > (lane[1].y - lane[1].z)) &&
-                                ((obstacle.transform.position.x <= (rb.position.x + playerSize.x)) && (obstacle.transform.position.x >= (rb.position.x - playerSize.y))))) //il y a pas n'obstacle au milieux au niveau de la voiture 
+                            if (WillCollide(rb,ObstacleList,0)) //il y a pas n'obstacle au milieux au niveau de la voiture 
                             {
                                 Debug.Log("ah");
                                 Move("down");// IA va sur la ligne du milieux
@@ -97,8 +96,7 @@ public class IABehavior : MonoBehaviour
                         }
                         if (obstacle.transform.position.y < (lane[2].y + lane[2].z) && obstacle.transform.position.y > (lane[2].y - lane[2].z))//l'ia est sur la voie du bas
                         {
-                            if (!((obstacle.transform.position.y < (lane[1].y + lane[1].z) && obstacle.transform.position.y > (lane[1].y - lane[1].z)) &&
-                                ((obstacle.transform.position.x <= (rb.position.x + playerSize.x)) && (obstacle.transform.position.x >= (rb.position.x - playerSize.y))))) //il y a pas n'obstacle au milieux au niveau de la voiture 
+                            if (WillCollide(rb, ObstacleList, 4)) //il y a pas n'obstacle au milieux au niveau de la voiture 
                             {
                                 Debug.Log("B");
                                 Move("up");// IA va sur la ligne du milieux
@@ -106,14 +104,12 @@ public class IABehavior : MonoBehaviour
                         }
                         if (obstacle.transform.position.y < (lane[1].y + lane[1].z) && obstacle.transform.position.y > (lane[1].y - lane[1].z))//l'ia est sur la voie du Millieu
                         {
-                            if (!((obstacle.transform.position.y < (lane[0].y + lane[0].z) && obstacle.transform.position.y > (lane[0].y - lane[0].z)) &&
-                                ((obstacle.transform.position.x <= (rb.position.x + playerSize.x)) && (obstacle.transform.position.x >= (rb.position.x - playerSize.y))))) //TODO il y a pas n'obstacle sur la voie du haut au niveau de la voiture
+                            if (WillCollide(rb, ObstacleList, 1)) // il y a pas n'obstacle sur la voie du haut au niveau de la voiture
                             {
                                 Debug.Log("C");
                                 Move("up");// IA va sur la ligne du haut
                             }
-                            else if (!((obstacle.transform.position.y < (lane[2].y + lane[2].z) && obstacle.transform.position.y > (lane[2].y - lane[2].z)) &&
-                                ((obstacle.transform.position.x <= (rb.position.x + playerSize.x)) && (obstacle.transform.position.x >= (rb.position.x - playerSize.y))))) //TODO il y a pas n'obstacle sur la voie du bas au niveau de la voiture 
+                            else if (WillCollide(rb, ObstacleList, 4)) // il y a pas n'obstacle sur la voie du bas au niveau de la voiture 
                             {
                                 Debug.Log("D");
                                 Move("down");// IA va sur la ligne du bas

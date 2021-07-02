@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     private float movementSpeed;
 
     private List<GameObject> ActiveObstacles;
-    private Rigidbody2D IACar; 
+    private GameObject IACar; 
 
     void Start()
     {
@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
         startPositions[2] = new Vector3(12f, -2.9f, 0f);
 
         ActiveObstacles = new List<GameObject>();
-        IACar = GameObject.Find("IA").GetComponent<Rigidbody2D>();
+        IACar = GameObject.Find("IA");
         
         InstantiateProps();
     }
@@ -38,7 +38,7 @@ public class SpawnManager : MonoBehaviour
     {
         MoveProps();
         RandomizePropsActivation();
-        //donner liste  a ia
+        IACar.GetComponent<IABehavior>().Deplacement(ActiveObstacles);
     }
 
     private void InstantiateProps()
@@ -66,7 +66,7 @@ public class SpawnManager : MonoBehaviour
                 float currentPositionY = currentProp.localPosition.y;
                 currentProp.localPosition = new Vector3(currentPositionX - movementSpeed * Time.deltaTime, currentPositionY, 0f);
                 
-                if(currentProp.localPosition.x <= (IACar.position.x - 2.5F))
+                if(currentProp.localPosition.x <= (IACar.transform.position.x - 2.5F))
                 {
                     ActiveObstacles.Remove(currentProp.gameObject); // enleve l'objet de la liste active quand il est derriere l'ia 
                 }

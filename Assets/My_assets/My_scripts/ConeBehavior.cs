@@ -11,6 +11,8 @@ public class ConeBehavior : MonoBehaviour
 
     private Collider2D coneCollider;
 
+    public Vector2 size = new Vector2(0.22f,0.22f);
+
     private void OnEnable() // quand l'object est activé 
     {
         spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();

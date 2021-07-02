@@ -7,6 +7,7 @@ public class RoadMarkerManager : MonoBehaviour
     public float movementSpeed;
 
     [SerializeField] private GameObject maker;
+    [SerializeField] private GameObject FinishLine;
     private Vector3 startPosition;
     void Start()
     {

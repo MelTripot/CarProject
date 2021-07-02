@@ -69,7 +69,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 550e052acf998fe479990700dc6c1728, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   spriteArray:
   - {fileID: 21300000, guid: 550e052acf998fe479990700dc6c1728, type: 3}
   - {fileID: 21300000, guid: 0784b8a17ed28bc4b9967dcb56ad903f, type: 3}
+  size: {x: 0.22, y: 0.22}
 --- !u!61 &3749721885615664400
 BoxCollider2D:
   m_ObjectHideFlags: 0

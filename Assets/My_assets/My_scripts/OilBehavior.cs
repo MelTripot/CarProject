@@ -24,7 +24,6 @@ public class OilBehavior : MonoBehaviour
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
             player.Ralentissement();
             StartCoroutine(AccelDelay());
-            Debug.Log("ralenti");
         }
         if (collision.gameObject.CompareTag("IA")) // si IA 
         {
@@ -35,7 +34,6 @@ public class OilBehavior : MonoBehaviour
             StartCoroutine(AccelDelay());
             // TODO comportement de l'ia en cas de collision
         }
-        Debug.Log("TEST");
     }
     IEnumerator AccelDelay()
     {

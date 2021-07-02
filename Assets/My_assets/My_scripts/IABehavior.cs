@@ -104,16 +104,16 @@ public class IABehavior : MonoBehaviour
                             }
                         }
                         if (obstacle.transform.position.y < (lane[1].y + lane[1].z) && obstacle.transform.position.y > (lane[1].y - lane[1].z))//l'ia est sur la voie du Millieu
-                        {
-                            if (!WillCollide(rb, ObstacleList, 1)) // il y a pas n'obstacle sur la voie du haut au niveau de la voiture
-                            {
-                                Debug.Log("C");
-                                Move("up");// IA va sur la ligne du haut
-                            }
-                            else if (!WillCollide(rb, ObstacleList, 3)) // il y a pas n'obstacle sur la voie du bas au niveau de la voiture 
+                        {                            
+                            if (!WillCollide(rb, ObstacleList, 3)) // il y a pas n'obstacle sur la voie du bas au niveau de la voiture 
                             {
                                 Debug.Log("D");
                                 Move("down");// IA va sur la ligne du bas
+                            }
+                            else if (!WillCollide(rb, ObstacleList, 1)) // il y a pas n'obstacle sur la voie du haut au niveau de la voiture
+                            {
+                                Debug.Log("C");
+                                Move("up");// IA va sur la ligne du haut
                             }
 
                         }

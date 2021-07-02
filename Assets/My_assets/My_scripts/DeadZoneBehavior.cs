@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class DeadZoneBehavior : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverPannel;
+    [SerializeField] private TextMeshProUGUI Win;
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("IA")) 
-        {
-            gameOverPannel.SetActive(true);
+        {            
             Time.timeScale = 0;
-            // TODO Gagner ou perdu 
+            gameOverPannel.SetActive(true);
+            if (collision.gameObject.CompareTag("Player")) {Win.text = "Lose"; }
+            if (collision.gameObject.CompareTag("IA")) {Win.text = "Win"; }
+            
         }
     }
 

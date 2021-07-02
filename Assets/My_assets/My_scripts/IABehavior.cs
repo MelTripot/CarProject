@@ -51,16 +51,13 @@ public class IABehavior : MonoBehaviour
     private void Move(string choice)
     {
         isMoving = true;
-        Debug.Log("move");
         switch (choice)
         {
             case "up":
-                Debug.Log("CAS O");
                 rb.AddForce(new Vector2(0f, horizontalSpeed * Time.deltaTime));
                 break;
 
             case "down":
-                Debug.Log("CAS 1");
                 rb.AddForce(new Vector2(0f, -horizontalSpeed * Time.deltaTime));
                 break;
 
@@ -89,17 +86,14 @@ public class IABehavior : MonoBehaviour
                         {
                             if (!WillCollide(rb,ObstacleList,0)) //il y a pas n'obstacle au milieu au niveau de la voiture 
                             {
-                                Debug.Log("ah");
                                 Move("down");// IA va sur la ligne du milieu
                             }
 
                         }
                         if (obstacle.transform.position.y < (lane[2].y + lane[2].z) && obstacle.transform.position.y > (lane[2].y - lane[2].z))//l'ia est sur la voie du bas
                         {
-                            Debug.Log("baaa");
                             if (!WillCollide(rb, ObstacleList, 4)) //il y a pas n'obstacle au milieu au niveau de la voiture 
                             {
-                                Debug.Log("B");
                                 Move("up");// IA va sur la ligne du milieu
                             }
                         }
@@ -107,12 +101,10 @@ public class IABehavior : MonoBehaviour
                         {                            
                             if (!WillCollide(rb, ObstacleList, 3)) // il y a pas n'obstacle sur la voie du bas au niveau de la voiture 
                             {
-                                Debug.Log("D");
                                 Move("down");// IA va sur la ligne du bas
                             }
                             else if (!WillCollide(rb, ObstacleList, 1)) // il y a pas n'obstacle sur la voie du haut au niveau de la voiture
-                            {
-                                Debug.Log("C");
+                            {                                
                                 Move("up");// IA va sur la ligne du haut
                             }
 

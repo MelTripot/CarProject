@@ -9,6 +9,7 @@ public class RoadMarkerManager : MonoBehaviour
     [SerializeField] private GameObject maker;
     [SerializeField] private GameObject FinishLine;
     private Vector3 startPosition;
+    private bool isEnd = false;
     void Start()
     {
         startPosition = new Vector3(12f, 1.5f, 0f);
@@ -19,6 +20,7 @@ public class RoadMarkerManager : MonoBehaviour
     void Update()
     {
         MoveMarker();
+        MoveFinish();
     }
     // Instancie les marker 
     private void InstantiateMarker()
@@ -53,5 +55,23 @@ public class RoadMarkerManager : MonoBehaviour
                 currentMarker.localPosition = new Vector3(startPosition.x, currentPositionY, 0f);
             }
         }
+    }
+
+    private void MoveFinish()
+    {
+        if(FinishLine.GetComponent<FinishLineBehavior>().isMovable == true)
+        {
+            float currentPositionX = FinishLine.transform.localPosition.x;
+            if ( currentPositionX > -12f) // si la ligne est visible sur l'écran 
+            {
+                FinishLine.transform.localPosition = new Vector3(currentPositionX - movementSpeed * Time.deltaTime, 0f, 0f);
+            }
+            else
+            {
+                FinishLine.transform.localPosition = startPosition;
+                FinishLine.GetComponent<FinishLineBehavior>().isMovable = false;
+            }
+        }
+        
     }
 }

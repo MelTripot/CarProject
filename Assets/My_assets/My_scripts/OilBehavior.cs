@@ -32,7 +32,6 @@ public class OilBehavior : MonoBehaviour
             IABehavior ia = collision.gameObject.GetComponent<IABehavior>();
             ia.Ralentissement();
             StartCoroutine(AccelDelay());
-            // TODO comportement de l'ia en cas de collision
         }
     }
     IEnumerator AccelDelay()

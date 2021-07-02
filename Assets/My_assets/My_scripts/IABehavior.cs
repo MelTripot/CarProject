@@ -40,7 +40,6 @@ public class IABehavior : MonoBehaviour
         if (!isSlow)
         {
             IASensor(ObstacleList);
-            //TODO Mouvement de l'ia 
         }
         else
         {

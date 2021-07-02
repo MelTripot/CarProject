@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RoadMarkerManager : MonoBehaviour
 {
@@ -8,19 +9,31 @@ public class RoadMarkerManager : MonoBehaviour
 
     [SerializeField] private GameObject maker;
     [SerializeField] private GameObject FinishLine;
+    [SerializeField] private TextMeshProUGUI Clock;
+    [SerializeField] private TextMeshProUGUI ScorTab;
+
+
     private Vector3 startPosition;
     private bool isEnd = false;
+    private float timeLeft, score;
+
     void Start()
     {
         startPosition = new Vector3(12f, 1.5f, 0f);
         InstantiateMarker();
         movementSpeed = 10f;
+        timeLeft = 30f;
     }
 
     void Update()
     {
+        timeLeft -= Time.deltaTime;
+        Clock.text = timeLeft.ToString();
+        score +=  Time.deltaTime * 2;
+        ScorTab.text = "Score : " + score;
         MoveMarker();
         MoveFinish();
+
     }
     // Instancie les marker 
     private void InstantiateMarker()

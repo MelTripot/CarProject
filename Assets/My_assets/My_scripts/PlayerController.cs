@@ -33,18 +33,18 @@ public class PlayerController : MonoBehaviour
     {
         if (!isSlow)
         {
-            if (this.gameObject.transform.position.x - playerSize.x / 2 <= -8f && Input.GetAxis("Horizontal") < 0)
-            {
-                horizontalMovement = 0f;
-            }
-            else if (this.gameObject.transform.position.x + playerSize.x / 2 >= 0f && Input.GetAxis("Horizontal") > 0)
-            {
-                horizontalMovement = 0f;
-            }
-            else
-            {
-                horizontalMovement = Input.GetAxis("Horizontal") * horizontalSpeed * Time.deltaTime;
-            }
+            //if (this.gameObject.transform.position.x - playerSize.x / 2 <= -8f && Input.GetAxis("Horizontal") < 0)
+            //{
+            //    horizontalMovement = 0f;
+            //}
+            //else if (this.gameObject.transform.position.x + playerSize.x / 2 >= 0f && Input.GetAxis("Horizontal") > 0)
+            //{
+            //    horizontalMovement = 0f;
+            //}
+            //else
+            //{
+            //    horizontalMovement = Input.GetAxis("Horizontal") * horizontalSpeed * Time.deltaTime;
+            //}
             verticalMovement = Input.GetAxis("Vertical") * verticalSpeed * Time.deltaTime;
             rb.AddForce(new Vector2(horizontalMovement, verticalMovement));
         }

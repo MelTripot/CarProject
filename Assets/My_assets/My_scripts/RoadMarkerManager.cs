@@ -86,14 +86,12 @@ public class RoadMarkerManager : MonoBehaviour
                 {
                     FinishLine.transform.localPosition = new Vector3 (12f,0f,0f);
                     FinishLine.GetComponent<FinishLineBehavior>().isMovable = false;
-                    Debug.Log("position stard");
                 }
             }
         }
         else
         { //TODO revoir cette partie et le retour de la ligne 
             FinishLine.transform.localPosition = new Vector3(currentPositionX - movementSpeed * Time.deltaTime, 0f, 0f);
-            Debug.Log("AHH");
             FinishLine.GetComponent<FinishLineBehavior>().isMovable = true;
             FinishLine.GetComponent<FinishLineBehavior>().IsCrossable = false;
             //FinishLine.GetComponent<Collider2D>().isTrigger = false;

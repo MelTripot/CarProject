@@ -28,9 +28,9 @@ public class RoadMarkerManager : MonoBehaviour
     void Update()
     {
         timeLeft -= Time.deltaTime;
-        Clock.text = timeLeft.ToString();
-        score +=  Time.deltaTime * 2;
-        ScorTab.text = "Score : " + score;
+        Clock.text = timeLeft.ToString("F2");
+        score +=  Time.deltaTime * 20f;
+        ScorTab.text = "Score:"+ score.ToString("F2"); 
         MoveMarker();
         MoveFinish();
 
@@ -72,18 +72,32 @@ public class RoadMarkerManager : MonoBehaviour
 
     private void MoveFinish()
     {
-        if(FinishLine.GetComponent<FinishLineBehavior>().isMovable == true)
-        {
-            float currentPositionX = FinishLine.transform.localPosition.x;
-            if ( currentPositionX > -12f) // si la ligne est visible sur l'écran 
+        float currentPositionX = FinishLine.transform.localPosition.x;
+        if (timeLeft >= 1.5f)
+        {            
+            if (FinishLine.GetComponent<FinishLineBehavior>().isMovable == true)
             {
-                FinishLine.transform.localPosition = new Vector3(currentPositionX - movementSpeed * Time.deltaTime, 0f, 0f);
+                FinishLine.GetComponent<FinishLineBehavior>().IsCrossable = true;
+                if (currentPositionX > -12f) // si la ligne est visible sur l'écran 
+                {
+                    FinishLine.transform.localPosition = new Vector3(currentPositionX - movementSpeed * Time.deltaTime, 0f, 0f);
+                }
+                else
+                {
+                    FinishLine.transform.localPosition = new Vector3 (12f,0f,0f);
+                    FinishLine.GetComponent<FinishLineBehavior>().isMovable = false;
+                    Debug.Log("position stard");
+                }
             }
-            else
-            {
-                FinishLine.transform.localPosition = startPosition;
-                FinishLine.GetComponent<FinishLineBehavior>().isMovable = false;
-            }
+        }
+        else
+        { //TODO revoir cette partie et le retour de la ligne 
+            FinishLine.transform.localPosition = new Vector3(currentPositionX - movementSpeed * Time.deltaTime, 0f, 0f);
+            Debug.Log("AHH");
+            FinishLine.GetComponent<FinishLineBehavior>().isMovable = true;
+            FinishLine.GetComponent<FinishLineBehavior>().IsCrossable = false;
+            //FinishLine.GetComponent<Collider2D>().isTrigger = false;
+
         }
         
     }

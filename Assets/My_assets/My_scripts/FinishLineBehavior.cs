@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class FinishLineBehavior : MonoBehaviour
 {
+    [SerializeField] private GameObject gameOverPannel;
+    [SerializeField] private TextMeshProUGUI Win;
     // Start is called before the first frame update
     private Collider2D finishline;
-    public bool IsCrossable, isMovable = true ;
+    public bool IsCrossable , isMovable = true ;
     public Vector2 size = new Vector2(1.64f, 1.43f);
 
 
@@ -15,15 +18,19 @@ public class FinishLineBehavior : MonoBehaviour
         finishline = this.gameObject.GetComponent<BoxCollider2D>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) // Detecte la collision 
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) // si joueur
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("IA")) 
         {
-           // TODO Win
-        }
-        if (collision.gameObject.CompareTag("IA")) // si IA 
-        {
-            // TODO LOSE
+            if (IsCrossable == false)
+            {
+                Time.timeScale = 0;
+                gameOverPannel.SetActive(true);
+                if (collision.gameObject.CompareTag("Player")) {Win.text = "Lose"; }
+                if (collision.gameObject.CompareTag("IA")) {Win.text = "Win"; } 
+            }
+            
+            
         }
     }
 }

@@ -26,8 +26,8 @@ public class FinishLineBehavior : MonoBehaviour
             {
                 Time.timeScale = 0;
                 gameOverPannel.SetActive(true);
-                if (collision.gameObject.CompareTag("Player")) {Win.text = "Lose"; }
-                if (collision.gameObject.CompareTag("IA")) {Win.text = "Win"; } 
+                if (collision.gameObject.CompareTag("Player")) {Win.text = "Win"; }
+                if (collision.gameObject.CompareTag("IA")) {Win.text = "Lose"; } 
             }
             
             

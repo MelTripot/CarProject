@@ -31,6 +31,7 @@ public class DeadZoneBehavior : MonoBehaviour
 
     public void MenuButton()
     {
-        //TODO retour vers le menu 
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 }
